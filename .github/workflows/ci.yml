@@ -1,0 +1,47 @@
+name: Test
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    name: "Run test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+        with:
+          ruby-version: '3.1'
+
+      - name: Setup Gcloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          export_default_credentials: true
+
+      - name: Install Datastore emulator
+        run: gcloud --quiet components install cloud-datastore-emulator
+
+      - name: Show gcloud info
+        run: gcloud version && gcloud info
+
+      - name: bundle install
+        run: |
+          bundle install --jobs=3 --retry=3
+          (cd test/support/datastore_example_rails_app/ && BUNDLE_GEMFILE=./Gemfile bundle install --jobs=3 --retry=3)
+
+      - name: Start Datastore Emulator
+        run: gcloud --quiet beta emulators datastore start --no-store-on-disk --host-port=8180
+
+      - name: Run test
+        run: |
+          bundle exec rake
+
+      - name: Run example app test
+        run: |
+          cd test/support/datastore_example_rails_app/
+          BUNDLE_GEMFILE=./Gemfile bundle exec rake
+
