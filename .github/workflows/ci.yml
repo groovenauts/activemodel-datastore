@@ -37,8 +37,8 @@ jobs:
         run: |
           bundle exec rake
 
-      - name: Run example app test
-        run: |
-          cd test/support/datastore_example_rails_app/
-          BUNDLE_GEMFILE=./Gemfile bundle exec rake
+     #- name: Run example app test
+     #  run: |
+     #    cd test/support/datastore_example_rails_app/
+     #    BUNDLE_GEMFILE=./Gemfile bundle exec rake
 
