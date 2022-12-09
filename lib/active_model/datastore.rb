@@ -310,7 +310,7 @@ module ActiveModel::Datastore
     #
     def find(*ids, parent: nil)
       expects_array = ids.first.is_a?(Array)
-      ids = ids.flatten.compact.uniq.map(&:to_i)
+      ids = ids.flatten.compact.uniq
 
       case ids.size
       when 0
