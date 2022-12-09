@@ -51,7 +51,7 @@ class ActiveSupport::TestCase
       puts 'Starting the cloud datastore emulator in test mode.'
       data_dir = File.join(File.expand_path('..', __dir__), 'tmp', 'test_datastore')
       #spawn "gcloud --project=test --quiet beta emulators datastore start --no-store-on-disk --host-port=8181 > /dev/null 2>&1"
-      spawn "gcloud --project=test --quiet beta emulators datastore start --no-store-on-disk --host-port=localhost:8181"
+      spawn "gcloud --project=test --quiet beta emulators datastore start --no-store-on-disk --host-port=localhost:8181 --consistency=1.0"
       loop do
         Net::HTTP.get('localhost', '/', '8181').include? 'Ok'
         break
