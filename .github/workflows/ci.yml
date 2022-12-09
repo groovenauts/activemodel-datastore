@@ -33,9 +33,6 @@ jobs:
           bundle install --jobs=3 --retry=3
           (cd test/support/datastore_example_rails_app/ && BUNDLE_GEMFILE=./Gemfile bundle install --jobs=3 --retry=3)
 
-      - name: Start Datastore Emulator
-        run: gcloud --quiet beta emulators datastore start --no-store-on-disk --host-port=8180
-
       - name: Run test
         run: |
           bundle exec rake

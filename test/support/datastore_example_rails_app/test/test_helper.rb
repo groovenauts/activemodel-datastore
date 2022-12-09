@@ -34,7 +34,7 @@ class ActiveSupport::TestCase
     if `lsof -t -i TCP:8181`.to_i.zero?
       puts 'Starting the cloud datastore emulator in test mode.'
       data_dir = Rails.root.join('tmp', 'test_datastore')
-      spawn "cloud_datastore_emulator start --port=8181 --testing #{data_dir} > /dev/null 2>&1"
+      spawn "gcloud --project=test --quiet beta emulators datastore start --no-store-on-disk --host-port=localhost:8181 > /dev/null 2>&1"
       loop do
         Net::HTTP.get('localhost', '/', '8181').include? 'Ok'
         break
