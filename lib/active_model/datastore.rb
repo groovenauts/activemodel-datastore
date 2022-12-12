@@ -381,16 +381,10 @@ module ActiveModel::Datastore
     ##
     #
     # Create new instance
-    def create(**kw)
-      rec = self.new(**kw)
-      rec.save
-      rec
-    end
-
     def create!(**kw)
       rec = self.new(**kw)
       rec.save!
-      rec
+      self.find(kw[:id])
     end
 
     ##
