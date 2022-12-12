@@ -384,11 +384,13 @@ module ActiveModel::Datastore
     def create(**kw)
       rec = self.new(**kw)
       rec.save
+      rec
     end
 
     def create!(**kw)
       rec = self.new(**kw)
       rec.save!
+      rec
     end
 
     ##
