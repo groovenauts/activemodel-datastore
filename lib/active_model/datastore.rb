@@ -379,6 +379,19 @@ module ActiveModel::Datastore
     end
 
     ##
+    #
+    # Create new instance
+    def create(**kw)
+      rec = self.new(**kw)
+      rec.save
+    end
+
+    def create!(**kw)
+      rec = self.new(**kw)
+      rec.save!
+    end
+
+    ##
     # Constructs a Google::Cloud::Datastore::Query.
     #
     # @param [Hash] options The options to construct the query with.
