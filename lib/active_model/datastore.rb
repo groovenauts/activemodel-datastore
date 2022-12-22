@@ -215,7 +215,7 @@ module ActiveModel::Datastore
     # A default parent key for specifying an ancestor path and creating an entity group.
     #
     def parent_key(parent_id)
-      CloudDatastore.dataset.key('Parent' + name, parent_id.to_s)
+      CloudDatastore.dataset.key('Parent' + name, parent_id)
     end
 
     ##
